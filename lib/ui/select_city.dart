@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-
-class SelectCity extends StatefulWidget {
-  @override
-  _SelectCityState createState() => _SelectCityState();
-}
-
-class _SelectCityState extends State<SelectCity> {
-
-  var input_city_controller = TextEditingController();
-
+class ChangeCity extends StatelessWidget {
+  var inputCityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Input City"),
         backgroundColor: Colors.redAccent,
@@ -23,7 +15,7 @@ class _SelectCityState extends State<SelectCity> {
         child: new ListView(
           children: <Widget>[
             new TextField(
-              controller: input_city_controller,
+              controller: inputCityController,
               decoration: InputDecoration(
                   labelText: "City Name",
                   hintText: "Dhaka"
@@ -33,7 +25,12 @@ class _SelectCityState extends State<SelectCity> {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: RaisedButton(
-                onPressed: (){},
+                onPressed: (){
+                  print(inputCityController.text);
+                  Navigator.of(context).pop({
+                    'enter': inputCityController.text
+                  });
+                },
                 child: Text("DONE",style: TextStyle(color: Colors.white),),
                 color: Colors.cyan,
               ),

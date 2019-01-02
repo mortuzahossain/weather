@@ -5,15 +5,34 @@ import 'package:kimatic/util/apiinfo.dart';
 import 'dart:convert';
 import 'select_city.dart';
 
-//Image URL
-//http://openweathermap.org/img/w/04d.png
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+
+  String _cityEntered;
+
+  Future _goToNextScreen(BuildContext context) async {
+    Map results = await Navigator
+        .of(context)
+        .push(new MaterialPageRoute<Map>(builder: (BuildContext context) { //change to Map instead of dynamic for this to work
+      return new ChangeCity();
+    }));
+
+    if ( results != null && results.containsKey('enter')) {
+      _cityEntered = results['enter'];
+      debugPrint("From First screen" + results['enter'].toString());
+      ChangeCityText();
+    }
+
+  }
+
+  ChangeCityText(){
+    city = _cityEntered;
+    showStuff();
+  }
 
   var temp,pressure,humidity,maxtemp,mintemp,description,icon;
   String city = "Dhaka";
@@ -43,12 +62,14 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.redAccent,
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.menu), onPressed: (){
-            var router = MaterialPageRoute(
-              builder: (BuildContext context) => new SelectCity()
-            );
-            Navigator.of(context).push(router);
-          })
+//          IconButton(icon: Icon(Icons.menu), onPressed: (){
+//            var router = MaterialPageRoute(
+//              builder: (BuildContext context) => new ChangeCity()
+//            );
+//            Navigator.of(context).push(router);
+//          }),
+          IconButton(icon: Icon(Icons.menu), onPressed: ()=>_goToNextScreen(context))
+
         ],
       ),
 
@@ -166,3 +187,4 @@ TextStyle otherTextStyle(){
       fontSize: 30.0
   );
 }
+
