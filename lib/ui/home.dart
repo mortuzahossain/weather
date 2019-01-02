@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:kimatic/util/apiinfo.dart';
 import 'dart:convert';
+import 'select_city.dart';
 
 
 class Home extends StatefulWidget {
@@ -13,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   var temp,pressure,humidity,maxtemp,mintemp;
-  String city = "London";
+  String city = "Dhaka";
 
   void showStuff() async{
     Map data = await getWeather(city);
@@ -30,13 +31,21 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    if(temp == null){
+      showStuff();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Kimatic"),
         backgroundColor: Colors.redAccent,
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.menu), onPressed: showStuff )
+          IconButton(icon: Icon(Icons.menu), onPressed: (){
+            var router = MaterialPageRoute(
+              builder: (BuildContext context) => new SelectCity()
+            );
+            Navigator.of(context).push(router);
+          })
         ],
       ),
 
@@ -73,7 +82,7 @@ class _HomeState extends State<Home> {
           new Container(
             margin: EdgeInsets.fromLTRB(0.0, MediaQuery.of(context).size.height/4, 0, 0),
             alignment: Alignment.center,
-            child: Text("$temp°C",style: tempTextStyle(),),
+            child:Text("$temp°C",style: tempTextStyle(),),
           ),
 
           new Container(
@@ -114,26 +123,6 @@ class _HomeState extends State<Home> {
   }
 
 
-//  Widget updateTempWidget(String city){
-//    return FutureBuilder(
-//      future: getWeather(city),
-//      builder: (BuildContext context,AsyncSnapshot<Map> snapshot){
-//        if (snapshot.hasData){
-//          Map content = snapshot.data;
-//          return new Container(
-//            child: new Column(
-//              children: <Widget>[
-//                new ListTile(
-//                  title: Text(content['main']["temp"].toString() + " °F" ,style: tempTextStyle(),),
-//                )
-//              ],
-//            ),
-//          );
-//        }
-//      },
-//    );
-//
-//  }
 
 }
 
