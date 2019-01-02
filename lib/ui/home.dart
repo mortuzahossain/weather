@@ -108,7 +108,8 @@ class _HomeState extends State<Home> {
 
           Container(
             alignment: Alignment.center,
-            child: icon==null?Text("Please Hit Refress !!",style: cityStyle(),):Image.network("http://openweathermap.org/img/w/$icon.png",scale: 0.3,),
+            child: icon==null?Text("Please Hit Refress !!",style: cityStyle(),):
+            Image.network("http://openweathermap.org/img/w/$icon.png",scale: 0.5,),
           ),
 
 
@@ -119,19 +120,19 @@ class _HomeState extends State<Home> {
           ),
 
           new Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 90),
+            margin: EdgeInsets.fromLTRB(10, 0, 0, 70),
             alignment: Alignment.bottomLeft,
             child: Text(maxtemp != null?"Max: $maxtemp°C":"",style: otherTextStyle(),),
           ),
 
           new Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 65),
+            margin: EdgeInsets.fromLTRB(10, 0, 0, 50),
             alignment: Alignment.bottomLeft,
             child: Text(maxtemp != null?"Min : $mintemp°C":"",style: otherTextStyle(),),
           ),
 
           new Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 37),
+            margin: EdgeInsets.fromLTRB(10, 0, 0, 30),
             alignment: Alignment.bottomLeft,
             child: Text(maxtemp != null?"Presure: $pressure":"",style: otherTextStyle(),),
           ),
@@ -181,10 +182,8 @@ TextStyle tempTextStyle(){
 
 TextStyle otherTextStyle(){
   return TextStyle(
-      color: Colors.white,
-      fontStyle: FontStyle.normal,
-      fontWeight: FontWeight.w400,
-      fontSize: 30.0
+      color: Colors.white70,
+      fontSize: 23.0
   );
 }
 
